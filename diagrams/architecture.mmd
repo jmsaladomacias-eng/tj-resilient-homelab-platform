@@ -1,0 +1,21 @@
+﻿flowchart LR
+  subgraph PVE[Proxmox VE]
+    B[Existing ext4 media branch] --> M[MergerFS pool<br/>category.create=epmfs]
+    S[Recently added ext4 media branch] --> M
+    M --> N[NFS export]
+  end
+
+  N -->|NFSv4.2| U[Ubuntu Server VM<br/>systemd automount]
+
+  subgraph DOCKER[Docker services on Ubuntu]
+    P[Plex<br/>/movies and /tv]
+    Q[qBittorrent<br/>/data]
+    R[Radarr<br/>/data]
+    SO[Sonarr<br/>/data]
+  end
+
+  U --> P
+  U --> Q
+  U --> R
+  U --> SO
+
